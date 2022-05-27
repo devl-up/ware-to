@@ -1,5 +1,9 @@
 name: Angular CI
 
+defaults:
+  run:
+    working-directory: ./frontend
+
 on:
   push:
   pull_request:
@@ -18,12 +22,9 @@ jobs:
         node-version: 16.x
         cache: 'npm'
     - name: Clean Install
-      working-directory: ./frontend
       run: npm ci
     - name: Build
-      working-directory: ./frontend
       run: npm run build --if-present
     - name: Test
-      working-directory: ./frontend
       run: |
           npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
