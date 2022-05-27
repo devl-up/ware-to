@@ -5,6 +5,10 @@ defaults:
     working-directory: ./frontend
 
 on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
   pull_request:
     branches: [ main ]
     paths:
