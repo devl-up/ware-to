@@ -1,4 +1,6 @@
-﻿using Infrastructure.Exceptions;
+﻿using Domain.Catalog.Repositories;
+using Infrastructure.EntityFrameworkCore.Repositories;
+using Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,5 +19,6 @@ internal static class ServiceCollectionExtensions
         }
 
         services.AddDbContext<WareToDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddTransient<IProductRepository, ProductRepository>();
     }
 }
