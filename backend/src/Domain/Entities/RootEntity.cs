@@ -1,6 +1,6 @@
-﻿using Domain.Common.ValueObjects;
+﻿using Domain.ValueObjects;
 
-namespace Domain.Common.Entities;
+namespace Domain.Entities;
 
 public abstract class RootEntity : Entity
 {

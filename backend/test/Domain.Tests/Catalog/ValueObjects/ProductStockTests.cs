@@ -1,6 +1,6 @@
 ﻿using System;
 using Domain.Catalog.ValueObjects;
-using Domain.Common.Exceptions;
+using Domain.Exceptions;
 using FluentAssertions;
 using Xunit;
 

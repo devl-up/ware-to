@@ -1,4 +1,4 @@
-﻿namespace Domain.Common.Exceptions;
+﻿namespace Domain.Exceptions;
 
 public sealed class DomainException : Exception
 {
