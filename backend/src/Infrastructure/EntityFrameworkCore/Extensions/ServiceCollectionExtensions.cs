@@ -1,4 +1,4 @@
-﻿using Domain.Catalog.Repositories;
+using Domain.Catalog.Repositories;
 using Infrastructure.EntityFrameworkCore.Repositories;
 using Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
