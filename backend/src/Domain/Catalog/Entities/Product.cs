@@ -1,7 +1,7 @@
 ﻿using Domain.Catalog.Mementos;
 using Domain.Catalog.ValueObjects;
-using Domain.Common.Entities;
-using Domain.Common.ValueObjects;
+using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Domain.Catalog.Entities;
 

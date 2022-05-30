@@ -1,6 +1,6 @@
-﻿using Domain.Common.Exceptions;
+﻿using Domain.Exceptions;
 
-namespace Domain.Common.ValueObjects;
+namespace Domain.ValueObjects;
 
 public record EntityId
 {
