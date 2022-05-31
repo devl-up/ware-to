@@ -16,6 +16,13 @@ public sealed class ProductController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("change-information")]
+    public async Task<IActionResult> ChangeInformation([FromServices] IMediator mediator, ChangeInformation.Command command)
+    {
+        await mediator.Send(command);
+        return NoContent();
+    }
+
     [HttpGet]
     public async Task<ActionResult<GetProducts.Result>> Get([FromServices] IMediator mediator, int pageIndex, int pageSize)
     {

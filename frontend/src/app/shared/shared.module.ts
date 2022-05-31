@@ -13,6 +13,8 @@ import {ErrorSnackbarComponent} from "./components/error-snackbar/error-snackbar
 import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
 
 const material = [
   MatToolbarModule,
@@ -25,7 +27,9 @@ const material = [
   MatSnackBarModule,
   MatTableModule,
   MatCardModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDialogModule,
+  MatSelectModule
 ];
 
 const angular = [
