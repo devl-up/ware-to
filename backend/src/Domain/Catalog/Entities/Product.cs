@@ -7,9 +7,9 @@ namespace Domain.Catalog.Entities;
 
 public sealed class Product : RootEntity
 {
-    private readonly ProductName _name;
-    private readonly ProductPrice _price;
     private readonly ProductStock _stock;
+    private ProductName _name;
+    private ProductPrice _price;
 
     public Product(EntityId id, ProductName name, ProductPrice price, ProductStock stock) : base(id)
     {
@@ -31,5 +31,11 @@ public sealed class Product : RootEntity
             new(memento.Price),
             new(memento.Stock)
         );
+    }
+
+    public void ChangeInformation(ProductName name, ProductPrice price)
+    {
+        _name = name;
+        _price = price;
     }
 }
