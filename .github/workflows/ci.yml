@@ -1,0 +1,38 @@
+name: Full CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: "[FRONTEND] Use Node.js 16.x"
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+    - name: "[FRONTEND] Clean Install"
+      working-directory: ./frontend
+      run: npm ci
+    - name: "[FRONTEND] Build"
+      working-directory: ./frontend
+      run: npm run build --if-present
+    - name: "[BACKEND] Setup .NET"
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: "[BACKEND] Restore dependencies"
+      working-directory: ./backend
+      run: dotnet restore
+    - name: "[BACKEND] Build"
+      working-directory: ./backend
+      run: dotnet build --no-restore
+    - name: "[BACKEND] Test"
+      working-directory: ./backend
+      run: dotnet test --no-build --verbosity normal
