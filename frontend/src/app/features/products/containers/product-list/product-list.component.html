@@ -1,6 +1,8 @@
 <div class="container">
   <app-product-list-table [products]="products$ | async"
                           [totalAmount]="totalAmount$ | async"
-                          (pageChanged)="getProducts($event)">
+                          [currentPage]="currentPage$ | async"
+                          (pageChanged)="getProducts($event)"
+                          (changeInformationOpened)="openChangeInformation($event)">
   </app-product-list-table>
 </div>

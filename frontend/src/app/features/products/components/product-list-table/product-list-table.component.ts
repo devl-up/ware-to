@@ -23,16 +23,31 @@ export class ProductListTableComponent {
     }
   }
 
+  @Input()
+  public set currentPage(page: Page | null) {
+    if (this.paginator && page) {
+      this.paginator.pageIndex = page.pageIndex;
+      this.paginator.pageSize = page.pageSize;
+    }
+  }
+
   @Output()
   public pageChanged = new EventEmitter<Page>();
+
+  @Output()
+  public changeInformationOpened = new EventEmitter<ProductList>();
 
   @ViewChild("paginator")
   public paginator: MatPaginator | null = null;
 
-  public columns = ["id", "name", "price", "stock"];
+  public columns = ["id", "name", "price", "stock", "actions"];
   public dataSource = new MatTableDataSource<ProductList>([]);
 
   public changePage({pageIndex, pageSize}: PageEvent): void {
     this.pageChanged.emit({pageIndex, pageSize});
+  }
+
+  public openChangeInformation(product: ProductList): void {
+    this.changeInformationOpened.emit(product);
   }
 }

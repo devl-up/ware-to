@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Change Product Information</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input type="text" formControlName="name" matInput>
+      <mat-error *ngIf="form.get('name')?.invalid">
+        <div *ngIf="form.get('name')?.errors?.['required']">
+          Name is required
+        </div>
+        <div *ngIf="form.get('name')?.errors?.['maxlength']">
+          Name is can't exceed 50 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input type="number" formControlName="price" matInput>
+      <mat-error *ngIf="form.get('price')?.invalid">
+        <div *ngIf="form.get('price')?.errors?.['required']">
+          Price is required
+        </div>
+        <div *ngIf="form.get('price')?.errors?.['min']">
+          Price can't be negative
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Stock</mat-label>
+      <input type="number" formControlName="stock" matInput readonly>
+    </mat-form-field>
+    <div>
+      <button [disabled]="form.invalid" mat-raised-button color="primary" (click)="save()">
+        Save
+      </button>
+      <button mat-raised-button color="accent" (click)="dialog.close()">
+        Close
+      </button>
+    </div>
+  </form>
+</div>
