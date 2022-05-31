@@ -1,5 +1,5 @@
 <mat-card class="mat-elevation-z4">
-  <form [formGroup]="form" (ngSubmit)="addProduct()">
+  <form [formGroup]="form">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input type="text" formControlName="name" matInput>
@@ -37,7 +37,7 @@
       </mat-error>
     </mat-form-field>
     <div>
-      <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">
+      <button [disabled]="form.invalid" (click)="addProduct()" mat-raised-button color="primary">
         Add
       </button>
     </div>
