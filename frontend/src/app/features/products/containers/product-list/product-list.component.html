@@ -1,0 +1,6 @@
+<div class="container">
+  <app-product-list-table [products]="products$ | async"
+                          [totalAmount]="totalAmount$ | async"
+                          (pageChanged)="getProducts($event)">
+  </app-product-list-table>
+</div>

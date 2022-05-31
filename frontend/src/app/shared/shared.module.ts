@@ -10,6 +10,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ErrorSnackbarComponent} from "./components/error-snackbar/error-snackbar.component";
+import {MatTableModule} from "@angular/material/table";
+import {MatCardModule} from "@angular/material/card";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 const material = [
   MatToolbarModule,
@@ -19,7 +22,10 @@ const material = [
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTableModule,
+  MatCardModule,
+  MatPaginatorModule
 ];
 
 const angular = [

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Output} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Guid} from "../../../../shared/models/guid.model";
-import {AddProductCommand} from "../../../../shared/commands/add-product.command";
+import {AddProductCommand} from "../../../../shared/commands/product.command";
 
 @Component({
   selector: "app-add-product-form",
