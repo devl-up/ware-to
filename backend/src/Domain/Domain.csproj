@@ -7,15 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="obj\**" />
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>Domain.Tests</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
-
     <ItemGroup>
-      <EmbeddedResource Remove="obj\**" />
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>Infrastructure</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="obj\**" />
-    </ItemGroup>
-
 </Project>
