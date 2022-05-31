@@ -1,5 +1,6 @@
 using Domain.Catalog.Repositories;
 using Infrastructure.EntityFrameworkCore.Repositories;
+using Infrastructure.EntityFrameworkCore.Services;
 using Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,5 +21,6 @@ internal static class ServiceCollectionExtensions
 
         services.AddDbContext<WareToDbContext>(options => options.UseNpgsql(connectionString));
         services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddHostedService<EfCoreDatabaseService>();
     }
 }
