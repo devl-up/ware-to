@@ -6,7 +6,7 @@
   </mat-tab>
   <mat-tab label="Add Product" class="tab-container">
     <ng-template matTabContent>
-      <app-add-product></app-add-product>
+      <app-add-product (productAdded)="navigateToTab(0)"></app-add-product>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
