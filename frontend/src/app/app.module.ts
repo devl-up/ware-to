@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "./shared/shared.module";
 import {BaseUrlInterceptor} from "./core/interceptors/base-url.interceptor";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {ErrorInterceptor} from "./core/interceptors/error.interceptor";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     },
   ],

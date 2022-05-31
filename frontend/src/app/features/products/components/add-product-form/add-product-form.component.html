@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="addProduct()">
   <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
-    <input formControlName="name" matInput>
+    <input type="text" formControlName="name" matInput>
     <mat-error *ngIf="form.get('name')?.invalid">
       <div *ngIf="form.get('name')?.errors?.['required']">
         Name is required
@@ -13,7 +13,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Price</mat-label>
-    <input formControlName="price" matInput>
+    <input type="number" formControlName="price" matInput>
     <mat-error *ngIf="form.get('price')?.invalid">
       <div *ngIf="form.get('price')?.errors?.['required']">
         Price is required
@@ -25,7 +25,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Stock</mat-label>
-    <input formControlName="stock" matInput>
+    <input type="number" formControlName="stock" matInput>
     <mat-error *ngIf="form.get('stock')?.invalid">
       <div *ngIf="form.get('stock')?.errors?.['required']">
         Stock is required

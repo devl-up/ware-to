@@ -9,6 +9,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ErrorSnackbarComponent} from "./components/error-snackbar/error-snackbar.component";
 
 const material = [
   MatToolbarModule,
@@ -26,6 +27,10 @@ const angular = [
   ReactiveFormsModule,
 ]
 
+const components = [
+  ErrorSnackbarComponent
+]
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,6 +40,9 @@ const angular = [
   exports: [
     ...angular,
     ...material
+  ],
+  declarations: [
+    ...components
   ]
 })
 export class SharedModule {
