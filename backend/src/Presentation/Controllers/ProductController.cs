@@ -1,4 +1,5 @@
 ﻿using Application.Catalog.Commands;
+using Application.Catalog.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,5 +14,12 @@ public sealed class ProductController : ControllerBase
     {
         await mediator.Send(command);
         return NoContent();
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<GetProducts.Result>> Get([FromServices] IMediator mediator, int pageIndex, int pageSize)
+    {
+        var result = await mediator.Send(new GetProducts.Query(pageIndex, pageSize));
+        return Ok(result);
     }
 }

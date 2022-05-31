@@ -1,6 +1,9 @@
-form {
-  display: flex;
-  flex-direction: column;
+mat-card {
   width: 20vw;
   min-width: 200px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 }

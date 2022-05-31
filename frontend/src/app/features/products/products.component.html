@@ -1,5 +1,12 @@
 <mat-tab-group>
+  <mat-tab label="Products" class="tab-container">
+    <ng-template matTabContent>
+      <app-product-list></app-product-list>
+    </ng-template>
+  </mat-tab>
   <mat-tab label="Add Product" class="tab-container">
-    <app-add-product></app-add-product>
+    <ng-template matTabContent>
+      <app-add-product></app-add-product>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>
