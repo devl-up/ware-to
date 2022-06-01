@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Remove Product</h1>
+<div mat-dialog-content>
+  <h4>Are you sure you want to remove <b>{{data.name}}</b></h4>
+  <div class="button-group">
+    <button mat-raised-button color="primary" (click)="confirm()">
+      Confirm
+    </button>
+    <button mat-raised-button color="accent" (click)="dialog.close()">
+      Close
+    </button>
+  </div>
+</div>

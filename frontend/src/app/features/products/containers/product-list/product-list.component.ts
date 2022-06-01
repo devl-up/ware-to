@@ -7,6 +7,8 @@ import {Page} from "../../../../shared/models/page.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ChangeProductInformationDialogComponent} from "../../components/change-product-information-dialog/change-product-information-dialog.component";
 import {ProductStockVariation, ProductStockVariationDialogComponent, ProductStockVariationDialogData} from "../../components/product-stock-variation-dialog/product-stock-variation-dialog.component";
+import {ChangeProductInformationCommand} from "../../../../shared/commands/product.command";
+import {RemoveProductDialogComponent} from "../../components/remove-product-dialog/remove-product-dialog.component";
 
 @Component({
   selector: "app-product-list",
@@ -21,6 +23,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private _openChangeInformation = new Subject<ProductList>();
   private _openIncreaseStock = new Subject<ProductList>();
   private _openDecreaseStock = new Subject<ProductList>();
+  private _openRemoveProduct = new Subject<ProductList>();
 
   private _products = new BehaviorSubject<ProductList[]>([]);
   private _totalAmount = new BehaviorSubject<number>(0);
@@ -48,7 +51,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     const openChangeInformationSubscription = this._openChangeInformation.pipe(
       switchMap(product => this.matDialog.open(ChangeProductInformationDialogComponent, {data: product}).afterClosed()),
-      filter(command => !!command),
+      filter((command: ChangeProductInformationCommand) => !!command),
       mergeMap(command => productService.changeInformation(command)),
       tap(() => this.getProducts(this._currentPage.value)),
     ).subscribe();
@@ -88,6 +91,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
     ).subscribe();
 
     this._subscriptions.add(openDecreaseStockSubscription);
+
+    const openRemoveProductSubscription = this._openRemoveProduct.pipe(
+      switchMap(product => this.matDialog.open(RemoveProductDialogComponent, {data: product}).afterClosed()),
+      filter((id: string) => !!id),
+      mergeMap(id => productService.remove(id)),
+      tap(() => this.getProducts(this._currentPage.value))
+    ).subscribe();
+
+    this._subscriptions.add(openRemoveProductSubscription);
   }
 
   public getProducts({pageIndex, pageSize}: Page): void {
@@ -104,6 +116,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   public openDecreaseStock(product: ProductList): void {
     this._openDecreaseStock.next(product);
+  }
+
+  public openRemoveProduct(product: ProductList): void {
+    this._openRemoveProduct.next(product);
   }
 
   public ngOnInit(): void {
