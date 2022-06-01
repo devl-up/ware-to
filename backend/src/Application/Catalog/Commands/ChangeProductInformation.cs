@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Catalog.Commands;
 
-public static class ChangeInformation
+public static class ChangeProductInformation
 {
     public sealed class Command : IRequest
     {
