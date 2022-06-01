@@ -7,4 +7,5 @@ public interface IRepository<TRootEntity> where TRootEntity : RootEntity
 {
     Task<TRootEntity> GetById(EntityId id);
     Task Save(TRootEntity rootEntity);
+    Task Remove(TRootEntity rootEntity);
 }

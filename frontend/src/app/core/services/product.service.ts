@@ -40,4 +40,10 @@ export class ProductService {
 
     return this.http.post<void>(url, command);
   }
+
+  public remove(id: string): Observable<void> {
+    const url = `${this.endpoint}/${id}`;
+    
+    return this.http.delete<void>(url);
+  }
 }

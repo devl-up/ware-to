@@ -2,6 +2,7 @@
 using Application.Attributes;
 using Domain.Catalog.Repositories;
 using Domain.Catalog.ValueObjects;
+using Domain.ValueObjects;
 using MediatR;
 
 namespace Application.Catalog.Commands;
@@ -17,7 +18,7 @@ public static class ChangeProductInformation
             Price = price;
         }
 
-        [RequiredGuid]
+        [RequiredGuid(ErrorMessage = EntityId.EmptyMessage)]
         public Guid Id { get; }
 
         [Required(ErrorMessage = ProductName.EmptyMessage)]
