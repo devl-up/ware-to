@@ -1,11 +1,24 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from "@angular/core";
-import {BehaviorSubject, filter, mergeMap, Observable, Subject, Subscription, switchMap, tap} from "rxjs";
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  mergeMap,
+  Observable,
+  of,
+  Subject,
+  Subscription,
+  switchMap,
+  tap
+} from "rxjs";
 import {ProductList} from "../../../../shared/models/product.model";
 import {ProductService} from "../../../../core/services/product.service";
 import {GetProductsQuery} from "../../../../shared/queries/product.query";
 import {Page} from "../../../../shared/models/page.model";
 import {MatDialog} from "@angular/material/dialog";
-import {ChangeInformationDialogComponent} from "../../components/change-information-dialog/change-information-dialog.component";
+import {
+  ChangeInformationDialogComponent
+} from "../../components/change-information-dialog/change-information-dialog.component";
 
 @Component({
   selector: "app-product-list",
@@ -33,9 +46,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.currentPage$ = this._currentPage.asObservable();
 
     const getProductsSubscription = this._getProducts.pipe(
-      tap(({pageIndex, pageSize}) => this._currentPage.next({pageIndex, pageSize})),
-      switchMap(query => productService.get(query)),
-      tap(result => {
+      switchMap(query => combineLatest([productService.get(query), of(query)])),
+      tap(([result, {pageIndex, pageSize}]) => {
+        this._currentPage.next({pageIndex, pageSize});
         this._products.next(result.products);
         this._totalAmount.next(result.totalAmount);
       })
