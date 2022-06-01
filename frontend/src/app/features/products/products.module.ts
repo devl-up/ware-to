@@ -8,7 +8,8 @@ import {AddProductComponent} from "./containers/add-product/add-product.componen
 import {AddProductFormComponent} from "./components/add-product-form/add-product-form.component";
 import {ProductListComponent} from "./containers/product-list/product-list.component";
 import {ProductListTableComponent} from "./components/product-list-table/product-list-table.component";
-import {ChangeInformationDialogComponent} from "./components/change-information-dialog/change-information-dialog.component";
+import {ChangeProductInformationDialogComponent} from "./components/change-product-information-dialog/change-product-information-dialog.component";
+import {ProductStockVariationDialogComponent} from "./components/product-stock-variation-dialog/product-stock-variation-dialog.component";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {ChangeInformationDialogComponent} from "./components/change-information-
     AddProductFormComponent,
     ProductListComponent,
     ProductListTableComponent,
-    ChangeInformationDialogComponent
+    ChangeProductInformationDialogComponent,
+    ProductStockVariationDialogComponent
   ],
   imports: [
     CommonModule,

@@ -17,7 +17,21 @@ public sealed class ProductController : ControllerBase
     }
 
     [HttpPost("change-information")]
-    public async Task<IActionResult> ChangeInformation([FromServices] IMediator mediator, ChangeInformation.Command command)
+    public async Task<IActionResult> ChangeInformation([FromServices] IMediator mediator, ChangeProductInformation.Command command)
+    {
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPost("increase-stock")]
+    public async Task<IActionResult> IncreaseStock([FromServices] IMediator mediator, IncreaseProductStock.Command command)
+    {
+        await mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPost("decrease-stock")]
+    public async Task<IActionResult> DecreaseStock([FromServices] IMediator mediator, DecreaseProductStock.Command command)
     {
         await mediator.Send(command);
         return NoContent();

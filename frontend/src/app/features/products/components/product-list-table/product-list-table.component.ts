@@ -37,6 +37,12 @@ export class ProductListTableComponent {
   @Output()
   public changeInformationOpened = new EventEmitter<ProductList>();
 
+  @Output()
+  public stockIncreaseOpened = new EventEmitter<ProductList>();
+
+  @Output()
+  public stockDecreaseOpened = new EventEmitter<ProductList>();
+
   @ViewChild("paginator")
   public paginator: MatPaginator | null = null;
 
@@ -49,5 +55,13 @@ export class ProductListTableComponent {
 
   public openChangeInformation(product: ProductList): void {
     this.changeInformationOpened.emit(product);
+  }
+
+  public openStockIncrease(product: ProductList): void {
+    this.stockIncreaseOpened.emit(product);
+  }
+
+  public openStockDecrease(product: ProductList): void {
+    this.stockDecreaseOpened.emit(product);
   }
 }

@@ -1,23 +1,31 @@
 import {ChangeDetectionStrategy, Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ProductList} from "../../../../shared/models/product.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ChangeProductInformationCommand} from "../../../../shared/commands/product.command";
 
+export type ChangeProductInformationDialogData = {
+  readonly id: string;
+  readonly name: string;
+  readonly price: number;
+}
+
 @Component({
-  selector: "app-change-information-dialog",
-  templateUrl: "./change-information-dialog.component.html",
-  styleUrls: ["./change-information-dialog.component.scss"],
+  selector: "app-change-product-information-dialog",
+  templateUrl: "./change-product-information-dialog.component.html",
+  styleUrls: ["./change-product-information-dialog.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChangeInformationDialogComponent {
+export class ChangeProductInformationDialogComponent {
   public form: FormGroup;
 
-  public constructor(@Inject(MAT_DIALOG_DATA) public data: ProductList, formBuilder: FormBuilder, public readonly dialog: MatDialogRef<ChangeInformationDialogComponent>) {
+  public constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ChangeProductInformationDialogData,
+    public readonly dialog: MatDialogRef<ChangeProductInformationDialogComponent>,
+    formBuilder: FormBuilder
+  ) {
     this.form = formBuilder.group({
       name: [data.name, [Validators.required, Validators.maxLength(50)]],
-      price: [data.price, [Validators.required, Validators.min(0)]],
-      stock: [data.stock]
+      price: [data.price, [Validators.required, Validators.min(0)]]
     });
   }
 

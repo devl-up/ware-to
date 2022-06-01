@@ -1,24 +1,12 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from "@angular/core";
-import {
-  BehaviorSubject,
-  combineLatest,
-  filter,
-  mergeMap,
-  Observable,
-  of,
-  Subject,
-  Subscription,
-  switchMap,
-  tap
-} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, mergeMap, Observable, of, Subject, Subscription, switchMap, tap} from "rxjs";
 import {ProductList} from "../../../../shared/models/product.model";
 import {ProductService} from "../../../../core/services/product.service";
 import {GetProductsQuery} from "../../../../shared/queries/product.query";
 import {Page} from "../../../../shared/models/page.model";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  ChangeInformationDialogComponent
-} from "../../components/change-information-dialog/change-information-dialog.component";
+import {ChangeProductInformationDialogComponent} from "../../components/change-product-information-dialog/change-product-information-dialog.component";
+import {ProductStockVariation, ProductStockVariationDialogComponent, ProductStockVariationDialogData} from "../../components/product-stock-variation-dialog/product-stock-variation-dialog.component";
 
 @Component({
   selector: "app-product-list",
@@ -31,6 +19,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   private _getProducts = new Subject<GetProductsQuery>();
   private _openChangeInformation = new Subject<ProductList>();
+  private _openIncreaseStock = new Subject<ProductList>();
+  private _openDecreaseStock = new Subject<ProductList>();
 
   private _products = new BehaviorSubject<ProductList[]>([]);
   private _totalAmount = new BehaviorSubject<number>(0);
@@ -57,13 +47,47 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this._subscriptions.add(getProductsSubscription);
 
     const openChangeInformationSubscription = this._openChangeInformation.pipe(
-      switchMap(product => this.matDialog.open(ChangeInformationDialogComponent, {data: product}).afterClosed()),
+      switchMap(product => this.matDialog.open(ChangeProductInformationDialogComponent, {data: product}).afterClosed()),
       filter(command => !!command),
       mergeMap(command => productService.changeInformation(command)),
       tap(() => this.getProducts(this._currentPage.value)),
     ).subscribe();
 
     this._subscriptions.add(openChangeInformationSubscription);
+
+    const openIncreaseStockSubscription = this._openIncreaseStock.pipe(
+      switchMap(product => {
+        const data: ProductStockVariationDialogData = {
+          id: product.id,
+          type: "Increase",
+          currentStockValue: product.stock
+        };
+
+        return this.matDialog.open(ProductStockVariationDialogComponent, {data}).afterClosed();
+      }),
+      filter((variationAmount: ProductStockVariation) => !!variationAmount),
+      mergeMap(({id, amount}) => productService.increaseStock({id, variation: amount})),
+      tap(() => this.getProducts(this._currentPage.value)),
+    ).subscribe();
+
+    this._subscriptions.add(openIncreaseStockSubscription);
+
+    const openDecreaseStockSubscription = this._openDecreaseStock.pipe(
+      switchMap(product => {
+        const data: ProductStockVariationDialogData = {
+          id: product.id,
+          type: "Decrease",
+          currentStockValue: product.stock
+        };
+
+        return this.matDialog.open(ProductStockVariationDialogComponent, {data}).afterClosed();
+      }),
+      filter((variationAmount: ProductStockVariation) => !!variationAmount),
+      mergeMap(({id, amount}) => productService.decreaseStock({id, variation: amount})),
+      tap(() => this.getProducts(this._currentPage.value)),
+    ).subscribe();
+
+    this._subscriptions.add(openDecreaseStockSubscription);
   }
 
   public getProducts({pageIndex, pageSize}: Page): void {
@@ -72,6 +96,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   public openChangeInformation(product: ProductList): void {
     this._openChangeInformation.next(product);
+  }
+
+  public openIncreaseStock(product: ProductList): void {
+    this._openIncreaseStock.next(product);
+  }
+
+  public openDecreaseStock(product: ProductList): void {
+    this._openDecreaseStock.next(product);
   }
 
   public ngOnInit(): void {

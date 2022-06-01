@@ -3,6 +3,8 @@
                           [totalAmount]="totalAmount$ | async"
                           [currentPage]="currentPage$ | async"
                           (pageChanged)="getProducts($event)"
-                          (changeInformationOpened)="openChangeInformation($event)">
+                          (changeInformationOpened)="openChangeInformation($event)"
+                          (stockIncreaseOpened)="openIncreaseStock($event)"
+                          (stockDecreaseOpened)="openDecreaseStock($event)">
   </app-product-list-table>
 </div>

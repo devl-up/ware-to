@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{data.type}} Product Stock</h1>
+<div mat-dialog-content>
+  <h4>The current stock is: {{data.currentStockValue}}</h4>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input type="number" formControlName="variation" matInput>
+      <mat-error *ngIf="form.get('variation')?.invalid">
+        <div *ngIf="form.get('variation')?.errors?.['required']">
+          Amount is required
+        </div>
+        <div *ngIf="form.get('variation')?.errors?.['min']">
+          Amount must be positive
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">
+        Save
+      </button>
+      <button type="button" mat-raised-button color="accent" (click)="dialog.close()">
+        Close
+      </button>
+    </div>
+  </form>
+</div>

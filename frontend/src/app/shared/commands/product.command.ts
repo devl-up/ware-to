@@ -10,3 +10,13 @@ export type ChangeProductInformationCommand = {
   readonly name: string;
   readonly price: number;
 }
+
+export type IncreaseProductStockCommand = {
+  readonly id: string;
+  readonly variation: number;
+}
+
+export type DecreaseProductStockCommand = {
+  readonly id: string;
+  readonly variation: number;
+}

@@ -18,4 +18,14 @@ public sealed record ProductStock
     }
 
     public int Value { get; }
+
+    public ProductStock Increase(ProductStockVariation variation)
+    {
+        return new(Value + variation.Amount);
+    }
+
+    public ProductStock Decrease(ProductStockVariation variation)
+    {
+        return new(Value - variation.Amount);
+    }
 }

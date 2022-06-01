@@ -22,6 +22,57 @@ public sealed class ProductStockTests
         act.Should().ThrowExactly<DomainException>(minimumAmountMessage);
     }
 
+    [Fact]
+    public void Increase_Should_ReturnNewStockWithAddedValue_WhenSuccessful()
+    {
+        // Arrange
+        const int stockValue = 1;
+        const int stockVariationAmount = 1;
+        const int expectedStockValue = stockValue + stockVariationAmount;
+
+        var stock = new ProductStock(stockValue);
+
+        // Act
+        var newStock = stock.Increase(new(stockVariationAmount));
+
+        // Assert
+        newStock.Value.Should().Be(expectedStockValue);
+    }
+
+    [Fact]
+    public void Decrease_Should_ReturnNewStockWithSubtractedValue_WhenSuccessful()
+    {
+        // Arrange
+        const int stockValue = 2;
+        const int stockVariationAmount = 1;
+        const int expectedStockValue = stockValue - stockVariationAmount;
+
+        var stock = new ProductStock(stockValue);
+
+        // Act
+        var newStock = stock.Decrease(new(stockVariationAmount));
+
+        // Assert
+        newStock.Value.Should().Be(expectedStockValue);
+    }
+
+    [Fact]
+    public void Decrease_Should_ThrowDomainException_WhenVariationIsBiggerThenValue()
+    {
+        // Arrange
+        const int stockValue = 1;
+        const int stockVariationAmount = 2;
+        const string expectedMessage = "Product stock can't be negative";
+
+        var stock = new ProductStock(stockValue);
+
+        // Act
+        var newStock = () => stock.Decrease(new(stockVariationAmount));
+
+        // Assert
+        newStock.Should().ThrowExactly<DomainException>().WithMessage(expectedMessage);
+    }
+
     private static Func<ProductStock> Act(int value)
     {
         return () => new(value);
