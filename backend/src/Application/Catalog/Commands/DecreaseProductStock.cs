@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Application.Attributes;
 using Domain.Catalog.Repositories;
+using Domain.Catalog.ValueObjects;
+using Domain.ValueObjects;
 using MediatR;
 
 namespace Application.Catalog.Commands;
@@ -15,10 +17,10 @@ public static class DecreaseProductStock
             Variation = variation;
         }
 
-        [RequiredGuid]
+        [RequiredGuid(ErrorMessage = EntityId.EmptyMessage)]
         public Guid Id { get; }
         
-        [Range(1, int.MaxValue)]
+        [Range(ProductStockVariation.MinimumAmount, int.MaxValue, ErrorMessage = ProductStockVariation.MinimumAmountMessage)]
         public int Variation { get; }
     }
     

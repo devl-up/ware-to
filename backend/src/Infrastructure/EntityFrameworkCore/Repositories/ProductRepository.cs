@@ -46,4 +46,10 @@ internal sealed class ProductRepository : IProductRepository
 
         await _context.SaveChangesAsync();
     }
+
+    public Task Remove(Product product)
+    {
+        _context.Remove(product.ToMemento());
+        return _context.SaveChangesAsync();
+    }
 }

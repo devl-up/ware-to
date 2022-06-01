@@ -37,6 +37,13 @@ public sealed class ProductController : ControllerBase
         return NoContent();
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> RemoveProduct([FromServices] IMediator mediator, Guid id)
+    {
+        await mediator.Send(new RemoveProduct.Command(id));
+        return NoContent();
+    }
+
     [HttpGet]
     public async Task<ActionResult<GetProducts.Result>> Get([FromServices] IMediator mediator, int pageIndex, int pageSize)
     {
