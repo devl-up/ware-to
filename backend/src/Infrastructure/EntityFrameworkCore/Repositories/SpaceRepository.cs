@@ -1,39 +1,39 @@
-﻿using Domain.Catalog.Entities;
-using Domain.Catalog.Mementos;
-using Domain.Catalog.Repositories;
+﻿using Domain.Spaces.Entities;
+using Domain.Spaces.Mementos;
+using Domain.Spaces.Repositories;
 using Domain.ValueObjects;
 using Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EntityFrameworkCore.Repositories;
 
-internal sealed class ProductRepository : IProductRepository
+internal sealed class SpaceRepository : ISpaceRepository
 {
     private readonly WareToDbContext _context;
 
-    public ProductRepository(WareToDbContext context)
+    public SpaceRepository(WareToDbContext context)
     {
         _context = context;
     }
 
-    public async Task<Product> GetById(EntityId id)
+    public async Task<Space> GetById(EntityId id)
     {
-        var memento = await _context.Set<ProductMemento>()
+        var memento = await _context.Set<SpaceMemento>()
             .AsNoTracking()
             .FirstOrDefaultAsync(memento => memento.Id == id.Value);
 
         if (memento == null)
         {
-            throw new InfrastructureException($"Product with id {id.Value} not found");
+            throw new InfrastructureException($"Space with id {id.Value} not found");
         }
 
-        return Product.FromMemento(memento);
+        return Space.FromMemento(memento);
     }
 
-    public async Task Save(Product product)
+    public async Task Save(Space space)
     {
-        var newMemento = product.ToMemento();
-        var existingMemento = await _context.Set<ProductMemento>().FindAsync(product.Id.Value);
+        var newMemento = space.ToMemento();
+        var existingMemento = await _context.Set<SpaceMemento>().FindAsync(space.Id.Value);
 
         if (existingMemento == null)
         {
@@ -47,9 +47,9 @@ internal sealed class ProductRepository : IProductRepository
         await _context.SaveChangesAsync();
     }
 
-    public Task Remove(Product product)
+    public Task Remove(Space space)
     {
-        _context.Remove(product.ToMemento());
+        _context.Remove(space.ToMemento());
         return _context.SaveChangesAsync();
     }
 }
