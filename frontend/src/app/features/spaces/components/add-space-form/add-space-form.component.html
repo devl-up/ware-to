@@ -1,0 +1,21 @@
+<mat-card class="mat-elevation-z4">
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input type="text" formControlName="name" matInput>
+      <mat-error *ngIf="form.get('name')?.invalid">
+        <div *ngIf="form.get('name')?.errors?.['required']">
+          Name is required
+        </div>
+        <div *ngIf="form.get('name')?.errors?.['maxlength']">
+          Name is can't exceed 50 characters
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="form.invalid" (click)="addSpace()" mat-raised-button color="primary">
+        Add
+      </button>
+    </div>
+  </form>
+</mat-card>

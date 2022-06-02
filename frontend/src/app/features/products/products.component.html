@@ -1,10 +1,10 @@
 <mat-tab-group>
-  <mat-tab label="Products" class="tab-container">
+  <mat-tab label="Products">
     <ng-template matTabContent>
       <app-product-list></app-product-list>
     </ng-template>
   </mat-tab>
-  <mat-tab label="Add Product" class="tab-container">
+  <mat-tab label="Add Product">
     <ng-template matTabContent>
       <app-add-product (productAdded)="navigateToTab(0)"></app-add-product>
     </ng-template>
