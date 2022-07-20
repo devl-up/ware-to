@@ -1,7 +1,12 @@
 <mat-tab-group>
+  <mat-tab label="Spaces">
+    <ng-template matTabContent>
+      <app-space-list></app-space-list>
+    </ng-template>
+  </mat-tab>
   <mat-tab label="Add Space">
     <ng-template matTabContent>
-      <app-add-space></app-add-space>
+      <app-add-space (spaceAdded)="navigateToTab(0)"></app-add-space>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
