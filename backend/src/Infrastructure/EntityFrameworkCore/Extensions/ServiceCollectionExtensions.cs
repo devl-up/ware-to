@@ -1,4 +1,5 @@
 using Application.Catalog.Queries;
+using Application.Spaces.Queries;
 using Domain.Catalog.Repositories;
 using Domain.Spaces.Repositories;
 using Infrastructure.EntityFrameworkCore.Queries;
@@ -27,6 +28,7 @@ internal static class ServiceCollectionExtensions
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddTransient<ISpaceRepository, SpaceRepository>();
         services.AddTransient<IProductQueries, ProductQueries>();
+        services.AddTransient<ISpaceQueries, SpaceQueries>();
 
         services.AddHostedService<EfCoreDatabaseService>();
     }

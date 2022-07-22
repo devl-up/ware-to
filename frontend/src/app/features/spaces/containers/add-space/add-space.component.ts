@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnDestroy} from "@angular/core";
-import {mergeMap, Subject, Subscription} from "rxjs";
+import {ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, Output} from "@angular/core";
+import {mergeMap, Subject, Subscription, tap} from "rxjs";
 import {AddSpaceCommand} from "../../../../shared/commands/space.command";
 import {SpaceService} from "../../../../core/services/space.service";
 
@@ -13,9 +13,13 @@ export class AddSpaceComponent implements OnDestroy {
   private _subscription = new Subscription();
   private _addSpace = new Subject<AddSpaceCommand>();
 
+  @Output()
+  public spaceAdded = new EventEmitter();
+
   public constructor(spaceService: SpaceService) {
     const subscription = this._addSpace.pipe(
       mergeMap(command => spaceService.add(command)),
+      tap(() => this.spaceAdded.emit())
     ).subscribe();
 
     this._subscription.add(subscription);

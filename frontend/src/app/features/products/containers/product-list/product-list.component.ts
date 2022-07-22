@@ -40,10 +40,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     const getProductsSubscription = this._getProducts.pipe(
       switchMap(query => combineLatest([productService.get(query), of(query)])),
-      tap(([result, {pageIndex, pageSize}]) => {
+      tap(([{products, totalAmount}, {pageIndex, pageSize}]) => {
         this._currentPage.next({pageIndex, pageSize});
-        this._products.next(result.products);
-        this._totalAmount.next(result.totalAmount);
+        this._products.next(products);
+        this._totalAmount.next(totalAmount);
       })
     ).subscribe();
 

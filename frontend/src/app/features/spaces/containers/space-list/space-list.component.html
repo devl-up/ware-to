@@ -1,0 +1,7 @@
+<div class="container">
+  <app-space-list-table [spaces]="spaces$ | async"
+                        [totalAmount]="totalAmount$ | async"
+                        [currentPage]="currentPage$ | async"
+                        (pageChanged)="getSpaces($event)">
+  </app-space-list-table>
+</div>

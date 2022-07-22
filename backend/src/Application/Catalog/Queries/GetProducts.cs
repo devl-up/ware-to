@@ -17,17 +17,7 @@ public static class GetProducts
         public int PageSize { get; }
     }
 
-    public sealed class Result
-    {
-        public Result(List<ProductListProjection> products, long totalAmount)
-        {
-            Products = products;
-            TotalAmount = totalAmount;
-        }
-
-        public List<ProductListProjection> Products { get; }
-        public long TotalAmount { get; }
-    }
+    public sealed record Result(List<ProductListProjection> Products, long TotalAmount);
 
     internal sealed class Handler : IRequestHandler<Query, Result>
     {
