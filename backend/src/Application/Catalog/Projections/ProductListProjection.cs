@@ -1,3 +1,3 @@
 ﻿namespace Application.Catalog.Projections;
 
-public record ProductListProjection(Guid Id, string Name, decimal Price, int Stock);
+public sealed record ProductListProjection(Guid Id, string Name, decimal Price, int Stock);
